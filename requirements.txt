@@ -1,0 +1,5 @@
+groq
+pypdf
+python-dotenv
+PyPDF2
+speechrecognition  # if you plan to use the speech-to-text feature
