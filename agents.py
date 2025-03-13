@@ -1,70 +1,62 @@
 import json
+import time
+
 
 class CourtAgent:
-    """Base class for courtroom agents."""
-    def __init__(self, name, role):
+    """Base class for all courtroom agents with AI-driven responses."""
+
+    def __init__(self, name, role, model):
         self.name = name
         self.role = role
+        self.model = model  # AI model for generating responses
 
     def introduce(self):
         return f"My name is {self.name}, and I am the {self.role} in this case."
 
+    def generate_response(self, phase, case_facts):
+        """Uses AI to generate a response based on the phase and case details."""
+        prompt = f"""
+        You are {self.role} named {self.name}.
+        You are currently in the {phase} phase of a courtroom case.
+
+        Case Title: {case_facts['title']}
+        Key Arguments: {json.dumps(case_facts['arguments'], indent=2)}
+
+        Generate a response appropriate for this phase.
+        """
+        return self.model.generate_text(prompt)
+
+
 class Judge(CourtAgent):
-    def __init__(self, name):
-        super().__init__(name, "Judge")
+    """AI-powered Judge agent."""
+
+    def __init__(self, name, model):
+        super().__init__(name, "Judge", model)
 
     def give_ruling(self, verdict):
         return f"As the Judge, I have reached the verdict: {verdict}"
 
+    def comment(self, case_facts):
+        return self.generate_response("judge_commentary", case_facts)
+
+
 class Party(CourtAgent):
-    def __init__(self, name, role, arguments):
-        super().__init__(name, role)
+    """AI-powered party (Appellant/Respondent)."""
+
+    def __init__(self, name, role, arguments, model):
+        super().__init__(name, role, model)
         self.arguments = arguments
 
-    def present_arguments(self):
-        return f"As {self.role}, my arguments are: {self.arguments}"
+    def present_arguments(self, case_facts):
+        return self.generate_response("arguments", case_facts)
+
 
 class Witness(CourtAgent):
-    def __init__(self, name, testimony):
-        super().__init__(name, "Witness")
+    """AI-powered witness with dynamic testimony."""
+
+    def __init__(self, name, testimony, model):
+        super().__init__(name, "Witness", model)
         self.testimony = testimony
 
-    def give_testimony(self):
-        return f"My testimony is: {self.testimony}"
-
-def load_case_data(json_file):
-    """Load case details from JSON file."""
-    with open(json_file, "r") as file:
-        return json.load(file)
-
-def simulate_court_case(case_data):
-    """Simulate a court case using AI agents."""
-    print(f"Case Title: {case_data['case_title']}")
-    print(f"Court: {case_data['court']}")
-    print(f"Date: {case_data['date']}\n")
-
-    judge = Judge(case_data["judgment_by"])
-    appellant = Party(
-        case_data["parties"]["appellant"]["name"],
-        "Appellant",
-        case_data["key_arguments"]["appellant"]
-    )
-    respondent = Party(
-        case_data["parties"]["respondents"][0]["name"],
-        "Respondent",
-        case_data["key_arguments"]["respondent"]
-    )
-
-    print(judge.introduce())
-    print(appellant.introduce())
-    print(appellant.present_arguments())
-    print(respondent.introduce())
-    print(respondent.present_arguments())
-
-    print("\nFinal Judgment:")
-    print(judge.give_ruling(case_data["judgment_summary"]["court_decision"]))
-    print(f"Final Award: {case_data['judgment_summary']['final_award']}")
-
-if __name__ == "__main__":
-    case_data = load_case_data("data/case_data.json")
-    simulate_court_case(case_data)
+    def give_testimony(self, case_facts):
+        return self.generate_response("witness_testimony", case_facts)

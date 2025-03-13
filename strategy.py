@@ -17,7 +17,7 @@ def load_case_details(json_path):
 
 def suggest_strategy(role, case_facts, legal_references):
     """
-    Uses Groq API (llama3-8b-8192) to generate courtroom strategies.
+    Uses Groq API (deepseek-r1-distill-llama-70b) to generate courtroom strategies.
     """
     try:
         prompt = f"""
@@ -36,7 +36,7 @@ def suggest_strategy(role, case_facts, legal_references):
         """
 
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="deepseek-r1-distill-llama-70b",
             messages=[{"role": "system", "content": prompt}],
             temperature=0.5
         )
@@ -48,13 +48,13 @@ def suggest_strategy(role, case_facts, legal_references):
 
 # Example Usage
 if __name__ == "__main__":
-    case_file_path = "data/case_data.json"
+    case_file_path = "data/Sunit_C_Khatau_Case.json"
     case_data = load_case_details(case_file_path)
 
     # Extract necessary data
     case_facts = {
         "title": case_data["case_title"],
-        "arguments": case_data["key_arguments"],
+        "arguments": case_data.get("key_arguments") or case_data.get("legal_arguments", {}),
         "contract_purpose": case_data["contract_details"]["contract_purpose"],
         "court_decision": case_data["judgment_summary"]["court_decision"]
     }

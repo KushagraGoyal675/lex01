@@ -95,7 +95,7 @@ if __name__ == "__main__":
     # Extract key facts for better AI reasoning
     case_facts = {
         "title": case_data["case_title"],
-        "arguments": case_data["key_arguments"],
+        "arguments": case_data.get("key_arguments") or case_data.get("legal_arguments",{}),
         "precedents": case_data["legal_references"]["precedents"]
     }
 

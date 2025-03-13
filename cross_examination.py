@@ -20,7 +20,7 @@ def extract_case_details(case_data):
         "court": case_data["court"],
         "date": case_data["date"],
         "contract_purpose": case_data["contract_details"]["contract_purpose"],
-        "arguments": case_data["key_arguments"],
+        "arguments": case_data.get("key_arguments") or case_data.get("legal_arguments",{}),
         "final_award": case_data["judgment_summary"]["final_award"]
     }
 

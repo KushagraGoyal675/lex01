@@ -36,7 +36,7 @@ def generate_speech(speech_type, role, case_facts):
         }
 
         payload = {
-            "model": "llama3-8b-8192",  # Adjust model based on availability
+            "model": "deepseek-r1-distill-llama-70b",  # Adjust model based on availability
             "messages": [{"role": "system", "content": prompt}],
             "temperature": 0.5
         }
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     case_facts = {
         "title": case_data["case_title"],
         "court": case_data["court"],
-        "arguments": case_data["key_arguments"],
+        "arguments": case_data.get("key_arguments") or case_data.get("legal_arguments",{}),
         "precedents": case_data["legal_references"]["precedents"]
     }
 

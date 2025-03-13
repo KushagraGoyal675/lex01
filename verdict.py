@@ -45,7 +45,7 @@ def generate_verdict(case_facts, prosecution_strategy, defense_strategy, legal_r
         """
 
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="deepseek-r1-distill-llama-70b",
             messages=[{"role": "system", "content": prompt}],
             temperature=0.5
         )
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # Extract structured case details
     case_facts = {
         "title": case_data["case_title"],
-        "arguments": case_data["key_arguments"],
+        "arguments": case_data.get("key_arguments") or case_data.get("legal_arguments", {}),
         "contract_purpose": case_data["contract_details"]["contract_purpose"],
         "court_decision": case_data["judgment_summary"]["court_decision"]
     }

@@ -1,0 +1,77 @@
+{
+    "case_title": "Sunit C. Khatau vs. Dilip Dharamsey Khatau",
+    "date": "12 April, 2013",
+    "court": "Bombay High Court",
+    "judgment_by": "R.D. Dhanuka, J.",
+    "equivalent_citations": [],
+    "parties": {
+        "appellant": {
+            "name": "Sunit C. Khatau (represented by legal heirs)",
+            "description": "Legal heirs of Sunit C. Khatau challenging the arbitration award."
+        },
+        "respondents": [
+            {
+                "name": "Dilip Dharamsey Khatau",
+                "description": "Member of the DMK Group involved in the family dispute."
+            },
+            {
+                "name": "Krishnabai Abhey Khatau"
+            },
+            {
+                "name": "Brinda Abhey Khatau"
+            },
+            {
+                "name": "Nandita Jayesh Anjaria"
+            },
+            {
+                "name": "Leela Kishore Khatau"
+            },
+            {
+                "name": "Mahendra Kishore Khatau"
+            },
+            {
+                "name": "Anil Kishore Khatau"
+            },
+            {
+                "name": "Pratap Singh Mathuradas Vissanji",
+                "role": "Arbitrator appointed under the terms of the agreement."
+            },
+            {
+                "name": "Shobha M. Virani"
+            },
+            {
+                "name": "Bakul Kiran Khatau"
+            },
+            {
+                "name": "Hiten Abhay Khatau"
+            }
+        ]
+    },
+    "contract_details": {
+        "work_order": "Memorandum of Understanding (MOU) dated 12 July 1984",
+        "contract_date": "12/07/1984",
+        "contract_value": "Rs. 55,00,000 (as part of settlement obligations)",
+        "contract_purpose": "Family dispute resolution over division of Khatau Bungalow property.",
+        "dispute_clause": "Clause specifying arbitration in case of disagreement."
+    },
+    "legal_references": {
+        "laws_cited": [
+            "Indian Contract Act, Sections 73 & 74",
+            "Arbitration Act, 1940"
+        ],
+        "precedents": [
+            "Fateh Chand v. Balkrishan Dass",
+            "Maula Bux v. Union of India",
+            "Oil & Natural Gas Corporation v. Saw Pipes Ltd."
+        ]
+    },
+    "key_arguments": {
+        "appellant": "Argued that the agreement had to be fully executed before obligations could be enforced. Challenged the arbitrator's decision as premature and unfair.",
+        "respondent": "Asserted that CMK Group failed to vacate the premises, causing financial loss and delay in property division."
+    },
+    "judgment_summary": {
+        "court_decision": "Partial setting aside of arbitration award.",
+        "reasoning": "Found arbitrator’s decision on compensation excessive and not fully justified.",
+        "final_award": "Arbitration award partially set aside, compensation reduced."
+    }
+}
