@@ -1,40 +1,70 @@
-import os
-import groq
-from dotenv import load_dotenv
-from utils import remove_chain_of_thought
-
-# Load API key from .env
-load_dotenv()
-API_KEY = os.getenv("GROQ_API_KEY")
-if not API_KEY:
-    raise ValueError("API key missing. Set GROQ_API_KEY in your .env file.")
-
-client = groq.Client(api_key=API_KEY)
+import json
 
 class CourtAgent:
-    """AI-Powered Courtroom Agent."""
+    """Base class for courtroom agents."""
     def __init__(self, name, role):
         self.name = name
         self.role = role
 
-    def respond(self, message, additional_info=None):
-        """Generates an AI response considering legal context."""
-        prompt = (
-            f"You are {self.role} named {self.name}. "
-            f"Analyze the legal argument carefully and respond with precision.\n"
-            f"Argument: {message}"
-        )
-        if additional_info:
-            prompt += f"\nAdditional Info: {additional_info}"
+    def introduce(self):
+        return f"My name is {self.name}, and I am the {self.role} in this case."
 
-        try:
-            response = client.chat.completions.create(
-                model="deepseek-r1-distill-llama-70b",
-                messages=[{"role": "system", "content": prompt}]
-            )
-            raw_response = response.choices[0].message.content
-            final_response = remove_chain_of_thought(raw_response)
-            return final_response
-        except Exception as e:
-            print(f"Error: {e}")
-            return "AI failed to generate a response."
+class Judge(CourtAgent):
+    def __init__(self, name):
+        super().__init__(name, "Judge")
+
+    def give_ruling(self, verdict):
+        return f"As the Judge, I have reached the verdict: {verdict}"
+
+class Party(CourtAgent):
+    def __init__(self, name, role, arguments):
+        super().__init__(name, role)
+        self.arguments = arguments
+
+    def present_arguments(self):
+        return f"As {self.role}, my arguments are: {self.arguments}"
+
+class Witness(CourtAgent):
+    def __init__(self, name, testimony):
+        super().__init__(name, "Witness")
+        self.testimony = testimony
+
+    def give_testimony(self):
+        return f"My testimony is: {self.testimony}"
+
+def load_case_data(json_file):
+    """Load case details from JSON file."""
+    with open(json_file, "r") as file:
+        return json.load(file)
+
+def simulate_court_case(case_data):
+    """Simulate a court case using AI agents."""
+    print(f"Case Title: {case_data['case_title']}")
+    print(f"Court: {case_data['court']}")
+    print(f"Date: {case_data['date']}\n")
+
+    judge = Judge(case_data["judgment_by"])
+    appellant = Party(
+        case_data["parties"]["appellant"]["name"],
+        "Appellant",
+        case_data["key_arguments"]["appellant"]
+    )
+    respondent = Party(
+        case_data["parties"]["respondents"][0]["name"],
+        "Respondent",
+        case_data["key_arguments"]["respondent"]
+    )
+
+    print(judge.introduce())
+    print(appellant.introduce())
+    print(appellant.present_arguments())
+    print(respondent.introduce())
+    print(respondent.present_arguments())
+
+    print("\nFinal Judgment:")
+    print(judge.give_ruling(case_data["judgment_summary"]["court_decision"]))
+    print(f"Final Award: {case_data['judgment_summary']['final_award']}")
+
+if __name__ == "__main__":
+    case_data = load_case_data("data/case_data.json")
+    simulate_court_case(case_data)

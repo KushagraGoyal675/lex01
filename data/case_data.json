@@ -1,0 +1,59 @@
+{
+    "case_title": "Board Of Trustees Of Port vs Pioneer Engineer And Anr.",
+    "date": "14 June, 2006",
+    "court": "Bombay High Court",
+    "judgment_by": "Desai Ranjana P., J.",
+    "equivalent_citations": [
+        "2006(4)ARBLR343(BOM)",
+        "2006(5)BOMCR628"
+    ],
+    "parties": {
+        "appellant": {
+            "name": "Board Of Trustees Of Port",
+            "description": "A body corporate, constituted under the Major Port Trusts Act, 1963, based in Mormugao, Goa."
+        },
+        "respondents": [
+            {
+                "name": "Pioneer Engineer And Anr.",
+                "description": "A partnership firm registered under the Indian Partnership Act."
+            },
+            {
+                "name": "D.H. Rama Rao & J. Raja Rao",
+                "role": "Arbitrators appointed under the terms of the contract."
+            }
+        ]
+    },
+    "contract_details": {
+        "work_order": "CR(P)/D-184(TS)/10818",
+        "contract_date": "12/10/1985",
+        "contract_value": "Rs. 1,37,13,845",
+        "contract_purpose": "Construction of transit shed and superstructure for a multipurpose general cargo berth.",
+        "dispute_clause": "Clause 19.1 - Arbitration process for disputes."
+    },
+    "legal_references": {
+        "laws_cited": [
+            "Major Port Trusts Act, 1963",
+            "Indian Partnership Act",
+            "Arbitration Act, 1940",
+            "Indian Contract Act, Sections 73 & 74"
+        ],
+        "precedents": [
+            "Sikkim Subba Associates v. State of Sikkim",
+            "Steel Authority of India Ltd. v. J.C. Budharaja",
+            "K.P. Poulose v. State of Kerala and Anr.",
+            "New India Civil Erectors (P) Ltd. v. Oil and Natural Gas Corporation",
+            "Fateh Chand v. Balkrishan Dass",
+            "Maula Bux v. Union of India",
+            "Oil & Natural Gas Corporation v. Saw Pipes Ltd."
+        ]
+    },
+    "key_arguments": {
+        "appellant": "The arbitrators acted arbitrarily, ignored legal precedents, and misinterpreted sections 73 and 74 of the Contract Act.",
+        "respondent": "The arbitrators correctly assessed damages, followed legal principles, and the contract clause 9.7.1 was a penalty clause requiring fair assessment."
+    },
+    "judgment_summary": {
+        "court_decision": "Appeal dismissed.",
+        "reasoning": "The arbitrators' decision was in line with established legal principles, and their assessment of damages was reasonable.",
+        "final_award": "Rs. 29,96,995.85 with 12% interest per annum from the award date until payment."
+    }
+}

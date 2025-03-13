@@ -3,3 +3,12 @@ pypdf
 python-dotenv
 PyPDF2
 speechrecognition  # if you plan to use the speech-to-text feature
+fastapi
+uvicorn
+pymongo
+firebase-admin
+pdfplumber
+nltk
+requests
+beautifulsoup4
+

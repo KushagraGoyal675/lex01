@@ -1,33 +1,61 @@
-import re
-import PyPDF2
+import json
 
-def extract_text_from_pdf(pdf_path):
-    """Extracts text from a PDF case file."""
-    try:
-        with open(pdf_path, "rb") as file:
-            reader = PyPDF2.PdfReader(file)
-            text = " ".join(page.extract_text() for page in reader.pages if page.extract_text())
-        return text
-    except Exception as e:
-        print(f"Error extracting text: {e}")
-        return ""
+class CourtRole:
+    """
+    Represents a courtroom role (Judge, Prosecutor, Defense, Witness, etc.).
+    """
+    def __init__(self, name, role_type):
+        self.name = name
+        self.role_type = role_type
+        self.personality = self.assign_personality()
 
-def identify_roles_with_regex(text):
-    """Extracts courtroom role names from text using regex."""
-    roles = {
-        "Judge": re.search(r"Judge\s+(\w+\s\w+)", text),
-        "Prosecutor": re.search(r"Prosecutor\s+(\w+\s\w+)", text),
-        "Defense": re.search(r"Defense\s+Attorney\s+(\w+\s\w+)", text),
-        "Defendant": re.search(r"Defendant\s+(\w+\s\w+)", text),
+    def assign_personality(self):
+        """
+        Assigns a specific personality type based on the role.
+        """
+        personalities = {
+            "Judge": "Neutral, logical, authoritative",
+            "Appellant": "Determined, fact-driven, persistent",
+            "Respondent": "Defensive, strategic, argument-driven",
+            "Witness": "Observational, fact-based, supportive"
+        }
+        return personalities.get(self.role_type, "Neutral")
+
+    def introduce(self):
+        """
+        Introduces the role in a courtroom setting.
+        """
+        return f"{self.name}, serving as the {self.role_type}. Personality: {self.personality}"
+
+def assign_roles(case_data):
+    """
+    Dynamically assigns courtroom roles based on case_data.json format.
+    """
+    return {
+        "Judge": CourtRole(case_data["judgment_by"], "Judge"),
+        "Appellant": CourtRole(case_data["parties"]["appellant"]["name"], "Appellant"),
+        "Respondents": [CourtRole(r["name"], "Respondent") for r in case_data["parties"]["respondents"]],
+        "Witnesses": [CourtRole(w, "Witness") for w in case_data.get("witnesses", [])]
     }
-    return {role: match.group(1) if match else get_fallback_name(role) for role, match in roles.items()}
 
-def get_fallback_name(role):
-    """Assigns default names if they cannot be extracted."""
-    fallback_names = {
-        "Judge": "Justice Xavier",
-        "Prosecutor": "John Smith",
-        "Defense": "Emily Johnson",
-        "Defendant": "Alex Carter"
-    }
-    return fallback_names.get(role, "Unknown")
+# Example Usage:
+if __name__ == "__main__":
+    case_file_path = "data/case_data.json"
+
+    def load_case_file(file_path):
+        """Loads case data from JSON file."""
+        with open(file_path, "r", encoding="utf-8") as file:
+            return json.load(file)
+
+    case_data = load_case_file(case_file_path)
+
+    if case_data:
+        assigned_roles = assign_roles(case_data)
+
+        print("\n📌 Courtroom Roles Assigned:\n")
+        for role, persons in assigned_roles.items():
+            if isinstance(persons, list):  # Multiple respondents or witnesses
+                for person in persons:
+                    print(person.introduce())
+            else:
+                print(persons.introduce())
